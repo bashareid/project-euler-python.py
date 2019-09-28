@@ -1,0 +1,45 @@
+"""It is possible to write ten as the sum of primes in exactly five different ways:
+
+7 + 3
+5 + 5
+5 + 3 + 2
+3 + 3 + 2 + 2
+2 + 2 + 2 + 2 + 2
+
+What is the first value which can be written as the sum of primes in over five thousand different ways?"""
+
+def all_primes(upper_bound):
+  primes = [2]
+  for i in range(3, upper_bound):
+    j = 0
+    while j < len(primes) and primes[j] <= int(i ** 0.5):
+      if i % primes[j] == 0:
+        break
+      j += 1
+    else:
+      primes.append(i)
+  return primes
+
+def is_prime(x, primes):
+  sqrt = int(x ** 0.5) + 1
+  for prime in primes:
+    if x % prime == 0:
+      return False
+    if prime == primes[-1]:
+      return False
+    if prime > sqrt:
+      return True
+  return True
+
+primes = []
+primes = all_primes(100)
+#print(primes)  
+
+ways = [0] * 101
+ways[0] = 1
+for x in primes:
+    for i in range(x, 101):
+        ways[i] += ways[i - x]
+        if ways[i] > 5000 : 
+          print(i, ways[i])
+          break
