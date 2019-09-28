@@ -1,0 +1,35 @@
+"""The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+Find the sum of all the primes below two million.
+"""
+
+import math
+import time
+# this block for  check  numbers is it a prime or  not  
+
+def checkprime(x , all_primes):
+  for i in range(len(all_primes)):
+    if x % all_primes[i] == 0 :
+     return False
+    if all_primes[i] > math.pow(x,.5):
+     return True
+  return True     
+
+ # main function for  send numers  to  an array 
+
+t0 = time.time()
+upper_bound = 2000000
+add = 0
+all_primes=[2]
+
+for i in range(3, upper_bound, 2):
+  if checkprime(i, all_primes):
+   all_primes.append(i)
+# continuue for amin for adding all  prime numbers that in  array 
+
+for i in range(len(all_primes)):
+  add+= all_primes[i]
+print(add)
+
+print("time: ", time.time() - t0)   
+     
