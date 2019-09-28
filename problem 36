@@ -1,0 +1,32 @@
+"""The decimal number, 585 = 10010010012 (binary), is paldromic in both bases.
+
+Find the sum of all numbers, less than one million, which are paldromic in base 10 and base 2.
+
+(Please note that the paldromic number, in either base, may not include leading zeros.)
+
+"""
+total = 0; 
+
+def convert_to_binary(n):
+  bin1 = bin(n)
+  binary = bin1[2:]
+  return binary
+
+def pal(string):
+  reverse_string = string[::-1]
+  if reverse_string == string:
+     return True
+  else:
+    return False
+
+for i in range(0, 1000000):
+  # check if decimal number is paldromic
+  decimal_is_pal = pal(str(i))
+  # first thing is convert decimal to  binary then  check  if  binary is paldromic or not
+  binary = convert_to_binary(i)
+  binary_is_pal = pal(str(binary))
+  # if  two conditions are correct 
+  if decimal_is_pal == True and binary_is_pal == True:
+    total = total + i
+
+print (total)
