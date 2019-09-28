@@ -1,0 +1,43 @@
+"""
+permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically, we call it lexicographic order. The lexicographic permutations of 0, 1 and 2 are:
+
+012   021   102   120   201   210
+
+What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?"""
+
+# first way  to solve  it 
+counter  = 0
+for i in range(10):
+  for j in range(10):
+    if(j != i):
+     for k in range(10):
+       if (k != j and k != i):
+         for a in range(10):
+           if (a != j and a != k and a != i):
+             for b in  range(10):
+               if (b != a and b != k and b != i and b != j):
+                 for c in  range(10):
+                   if (c != a and c != k and c != i and c != j and c != b):
+                     for d in  range(10):
+                        if( d != a and d != k and d != i and d != j and d != b and d != c):
+                          for e in range(10):
+                            if( e != a and e != k and e != i and e != j and e != b and e != c and e != d):
+                              for f in  range(10):
+                                if ( f != a and f != k and f != i and f != j and f != b and f != c and f != d and f != e):
+                                  for w in range(10):
+                                    if ( w != a and w != k and w != i and w != j and w != b and w != c and w != d and w != e and w != f):
+                                      counter += 1
+                                      if counter == 1000000:
+                                        print(str(i) + str(j) + str(k) + str(a) + str(b) + str(c) + str(d) + str(e) + str(f) + str(w))
+
+# the second one 
+def perm(nums, output , remaining_digits):
+  if len(remaining_digits) < 1:
+    nums.append(output)
+  for digit in remaining_digits:
+    perm(nums, output + [digit], remaining_digits - set([digit]))
+
+
+nums = list()
+perm(nums, [], set(range(5)))
+print(nums)      
