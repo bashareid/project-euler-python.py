@@ -1,0 +1,11 @@
+"""
+By counting carefully it can be seen that a rectangular grid measuring 3 by 2 contains eighteen rectangles:
+
+
+Although there exists no rectangular grid that contains exactly two million rectangles, find the area of the grid with the nearest solution.
+"""
+for i in  range(100):
+  for j in  range(100):
+    solution = ((i * (i + 1)) / 2 )  * ((j * (j + 1)) / 2)
+    if  solution > 1999900 and solution < 2000000:
+      print(i *  j , solution)
