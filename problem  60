@@ -1,0 +1,82 @@
+"""
+The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and concatenating them in any order the result will always be prime. For example, taking 7 and 109, both 7109 and 1097 are prime. The sum of these four primes, 792, represents the lowest sum for a set of four primes with this property.
+
+Find the lowest sum for a set of five primes for which any two primes concatenate to produce another prime.
+"""
+from collections import defaultdict 
+class Graph:
+
+  def __init__(self):
+    self.graph = defaultdict(list)
+    
+  def __str__(self):
+    return str(self.graph)
+
+  def nodes(self):
+    return sorted(self.graph.keys())
+ 
+  def is_edge(self, u, v):
+    return v in self.graph[u] and u in self.graph[v]
+
+  def addedge(self, u, v):
+    self.graph[u].append(v)
+    self.graph[v].append(u)
+
+def all_primes(upper_bound):
+  primes = [2]
+  for i in range(3, upper_bound):
+    j = 0
+    while j < len(primes) and primes[j] <= int(i ** 0.5):
+      if i % primes[j] == 0:
+        break
+      j += 1
+    else:
+      primes.append(i)
+  return primes
+
+def is_prime(x, primes):
+  sqrt = int(x ** 0.5) + 1
+  for prime in primes:
+    if x % prime == 0:
+      return False
+    if prime == primes[-1]:
+      return False
+    if prime > sqrt:
+      return True
+  return True
+
+primes = []
+primes = all_primes(10000)
+g = Graph()
+
+for j in  range(len(primes)):
+  for i in range(j + 1, len(primes)):
+    num1 = str(primes[j])
+    num2 = str(primes[i])
+    if is_prime(int(num2 + num1), primes) and is_prime(int(num1 + num2), primes):
+      g.addedge(num1, num2)
+
+
+from itertools import combinations
+
+
+
+for clique in combinations(g.nodes(), 3):
+  result = [g.is_edge(*edge) for edge in combinations(clique, 2)]
+  if all(result):
+    #print("="*80)
+    #print(clique)
+    for node in g.nodes():
+      new_clique = tuple(list(clique)+[node])
+      result = [g.is_edge(*edge) for edge in combinations(new_clique, 2)]
+      if all(result):
+        #print(new_clique)
+        #print("-"*80)
+       for node_2 in g.nodes():
+         new_clique_1 = tuple(list(new_clique)+[node_2])
+         result_2 = [g.is_edge(*edge) for edge in combinations(new_clique_1, 2)]
+         if all(result_2):
+           print(new_clique_1)
+
+
+#print(g)
