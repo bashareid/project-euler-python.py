@@ -1,0 +1,56 @@
+"""
+If the numbers 1 to 5 are written out in words: one, two, three, four, five, then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
+
+If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words, how many letters would be used?
+
+NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20 letters. The use of "and" when writing out numbers is in compliance with British usage."""
+
+num_9 = ["", "one" , "two" , "three" , "four" , "five" , "six" , "seven" , "eight" , "nine" , "ten"  , "eleven" , "twelve" , "thirteen" , "fourteen" , "fifteen" , "sixteen" , "seventeen" , "eighteen" , "ninteen"]
+num = ["","" , "twenty" , "thirty" , "forty" , "fifty" , "sixty" , "seventy" , "eighty" , "ninety" ]
+
+
+
+def NumberLength(i):
+  sumof = 0
+  if i >= 1 and i < 20 :
+    sumof += len(num_9[i])
+
+  # for numbers less than 100
+  if i >= 20 and i < 100:
+    first = i % 10
+    second = ((i % 100) - first) // 10
+    if first == 0 :
+      sumof += len(num[second])
+    if first !=0:
+     sumof += len(num_9[first])  + len(num[second])
+
+  # for numbers from  99 to  1000
+  if i >= 100 and i < 1000 :
+    first = i % 10
+    second = ((i % 100) - first) // 10
+    third = ((i % 1000) - (i % 100)) // 100
+    special = i % 100
+
+    if first == 0 and second ==0:
+      sumof += 7 + len(num_9[third])
+
+    if second == 0 and first != 0:
+      sumof +=len(num_9[third]) + 10 + len(num_9[first])
+
+    if second == 1:
+     print(special)
+     sumof += len(num_9[third]) + 10  + len(num_9[special])
+
+    if first == 0 and second > 1:
+      sumof +=   len(num_9[third]) + 10   + len(num[second])
+
+    if first != 0 and second > 1:
+      sumof +=   len(num_9[third]) + 10 + len(num[second]) + len(num_9 [first])
+  return sumof
+
+
+#print(NumberLength(999))
+sumof = 0
+for i in  range(1,1000):
+ sumof += NumberLength(i)
+ print(sumof +21)
