@@ -1,0 +1,23 @@
+"""
+If p is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there are exactly three solutions for p = 120.
+
+{20,48,52}, {24,45,51}, {30,40,50}
+
+For which value of p ≤ 1000, is the number of solutions maximised?
+"""
+solutions = [0] * 1000 
+def sides_less_than_1000(side_3):
+ if side_3 == int(side_3):
+    perimeter = int(side_3) + side_2 + side_1 
+    if perimeter < 1000:
+      solutions[perimeter] = solutions[perimeter]  + 1
+
+
+for side_1 in range(1, 1000):
+  for side_2 in  range(side_1 + 1, 1000):
+    side_3 = pow(side_1 ** 2 + side_2 ** 2, 0.5)
+    sides_less_than_1000(side_3)
+    
+print(solutions[120]) 
+print(max(solutions))
+print(solutions.index(8))
