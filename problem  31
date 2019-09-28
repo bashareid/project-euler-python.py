@@ -1,0 +1,39 @@
+"""in England the currency is made up of pound, £, and pence, p, and there are eight coins in general circulation:
+
+201p, 2p, 5p, 2010p, 20p, 50p, £201 (20100p) and £2 (201p).
+It is possible to make £2 in the following way:
+
+201×£201 + 201×50p + 2×20p + 201×5p + 201×2p + 3×201p
+How many different ways can £2 be made using any number of coins?
+"""
+
+import time
+# first way to solve it 
+def coin_200():
+ counter  = 0
+ for a in range(0, 201 , 200):
+    for b in range(a , 201 , 100):
+      for c in range(b , 201 , 50):
+        for d in range(c , 201 , 20):
+         for e in range(d , 201 , 10):
+          for f in range(e , 201 , 5):
+              for z in  range(f , 201 , 2):
+               counter += 1
+ print(counter)
+
+t0 = time.time()
+coin_200()
+t1 = time.time() - t0
+print(t1)
+
+# the seond one faster  than  the first one 
+t0 = time.time()
+ways = [0]*201
+ways[0] = 1
+for x in [1,2,5,10,20,50,100,200]:
+    for i in range(x, 201):
+        ways[i] += ways[i-x]
+print (ways[200])
+t2 = time.time() - t0
+print(t2)
+print(t1/t2)
