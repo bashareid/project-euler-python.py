@@ -1,0 +1,50 @@
+"""
+The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit numbers are permutations of one another.
+
+There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting this property, but there is one other 4-digit increasing sequence.
+
+What 12-digit number do you form by concatenating the three terms in this sequence?
+"""
+from itertools import permutations
+
+def all_primes(upper_bound):
+  primes  = [2]
+  for i in range(3, upper_bound):
+    j = 0
+    while j < len(primes) and primes[j] <= int(i ** 0.5):
+      if i % primes[j] == 0:
+        break
+      j += 1
+    else:
+      primes.append(i)
+  return primes
+
+def is_prime(x, primes):
+  sqrt = int(x ** 0.5) + 1
+  for prime in primes:
+    if x % prime == 0:
+      return False
+    if prime == primes[-1]:
+      return False
+    if prime > sqrt:
+      return True
+  return True
+
+primes = []
+primes = [x for x in all_primes(10000) if x > 1487]
+
+def all_priems(b):
+  for i in range(len(b)):
+    for j in range(i + 1, len(b)):
+        last_num = b[j] - b[i]
+        if b[j] + last_num in b:
+          return str(b[i]) + str(b[j]) + str(b[j] + last_num)
+  return False
+
+for i in primes:
+  perm = permutations(str(i))
+  all_num = [int(''.join(x)) for x in perm]
+  all_num = list(set([x for x in all_num if x in primes]))
+  if all_priems(all_num):
+    print (all_priems(all_num))
+    break
