@@ -1,0 +1,43 @@
+"""
+It is all about sive primes and complexity and find that the numbers you want are even and not divisable by 4.
+
+"""
+import math
+MAX_SIZE = 100000001
+
+isprime = [True] * MAX_SIZE  
+prime = []  
+SPF = [None] * (MAX_SIZE)    
+def manipulated_seive(N):  
+  
+  isprime[0] = isprime[1] = False
+  for i in range(2, N):  
+    if isprime[i] == True:  
+      prime.append(i)  
+      SPF[i] = i  
+
+    j = 0
+    while (j < len(prime) and i * prime[j] < N and prime[j] <= SPF[i]):  
+      isprime[i * prime[j]] = False
+      SPF[i * prime[j]] = prime[j] 
+      j += 1
+
+manipulated_seive(MAX_SIZE - 1)
+
+result = 1
+for i in range(2, MAX_SIZE, 4):
+  flag = True
+  if not isprime[int(2 + i / 2)]:
+    continue
+  if not isprime[int(i + 1)]:
+    continue
+  for x in range(3, int(math.sqrt(i))):
+    if i % x != 0:
+      continue
+    if not isprime[int(x + i / x)]:
+      flag = False
+      break
+  if flag:
+    result += i 
+
+print(result)

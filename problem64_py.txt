@@ -1,0 +1,27 @@
+"""
+How many continued fractions for N <= 10 000 have an odd period?
+
+"""
+"""
+for this problem i used many resources like brilliant, wikipedia and mathworld
+""" 
+import math
+result = []
+for i in range(2, 10000):
+    if not math.sqrt(i).is_integer():
+        m = [0]
+        d = [1]
+        a = []
+        a.append(math.floor(math.sqrt(i)))
+        for j in range(1000):
+            m.append(d[-1] * a[-1] - m[-1])
+            d.append((i - (m[-1] ** 2)) / d[-1])
+            a.append(math.floor((math.sqrt(i) + m[-1]) / d[-1])) 
+            if a[-1] == 2 * a[0]:
+                result.append(len(a) - 1)
+                break
+counter = 0
+for i in result:
+    if i % 2 != 0:
+        counter +=1
+print(counter)    

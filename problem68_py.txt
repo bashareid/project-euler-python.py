@@ -1,0 +1,47 @@
+"""
+You can solve it using recursion , the idea is to forget the problem where should you begin in the question you should begin with the set that has
+the smallest number i generated all possible combinations then with a little bit of thinking you will notice that the number must begin with 6 and 
+the inner loop must containe 1, 2, 3, 4, 5 then you will find it easy.  
+
+"""
+lower_bound = 1
+upper_bound = 11
+combinations = []
+total = []
+
+for a in range(lower_bound, upper_bound):
+  for b in range(lower_bound, upper_bound):
+    if a != b:
+      for c in range(lower_bound, upper_bound):
+        if a != c and b != c:
+          for d in range(lower_bound, upper_bound):
+            if a != d and b != d and c != d:
+              for e in range(lower_bound, upper_bound):
+                if a != e and b != e and c != e and d != e:
+                  for f in range(lower_bound, upper_bound):
+                    if a != f and b != f and c != f and d != f and e != f:
+                      for g in range(lower_bound, upper_bound):
+                        if a != g and b != g and c != g and d != g and e != g and f != g:
+                          for h in range(lower_bound, upper_bound):
+                            if a != h and b != h and c != h and d != h and e != h and f != h and g != h:
+                              for i in range(lower_bound, upper_bound):
+                                if a != i and b != i and c != i and d != i and e != i and  f != i and g != i and h != i:
+                                  for j in range(lower_bound, upper_bound):
+                                    if a != j and b != j and c != j and d != j and e != j and  f != j and g != j and h != j and i != j:
+                                      x = [a, b, c]
+                                      y = [d, c, e]
+                                      z = [f, e, g]
+                                      m = [h, g, i]
+                                      n = [j, i, b]
+                                      if sum(x) == sum(y) == sum(z) == sum(m) == sum(n):
+                                        combinations.append((int(str(a) + str(b) + str(c) + str(d) + str(c) + str(e) + str(f) + str(e) + str(g)
+                                          + str(h) + str(g) + str(i) + str(j) + str(i) + str(b)), sum([c, e, g, i, b])))
+
+combinations = sorted(combinations, key = lambda s: s[1], reverse=False)
+minimum = combinations[0][1]
+highest = 0
+for i in combinations:
+  if len(str(i[0])) == 16 and str(i[0])[0] == '6':
+    if highest < i[0] and i[1] == minimum:
+      highest = i[0]
+print(highest)

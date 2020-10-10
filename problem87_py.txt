@@ -1,0 +1,22 @@
+import math
+def all_primes(upper_bound):
+  primes = [2]
+  for i in range(3, upper_bound):
+    j = 0
+    while j < len(primes) and primes[j] <= int(i ** 0.5):
+      if i % primes[j] == 0:
+        break
+      j += 1
+    else:
+      primes.append(i)
+  return primes
+primes3 = all_primes(86)
+primes1 = all_primes(7073)
+primes2 = all_primes(370)
+numbers = set()
+for i in primes1:
+    for j in primes2:
+        for k in primes3:
+            if (i ** 2)  + (j ** 3) + (k ** 4) < 50000000:
+                numbers.add((i ** 2)  + (j ** 3) + (k ** 4))
+print(len(numbers))

@@ -1,0 +1,24 @@
+"""
+Find the unique positive integer whose square has the form 1_2_3_4_5_6_7_8_9_0,
+where each “_” is a single digit.
+
+"""
+"""
+Just guessing no idea.
+
+"""
+import math
+from decimal import *
+getcontext().prec = 18
+for i in range(int(math.sqrt(19293949596979899)) * 10, int(math.sqrt(10203040506070809)), -2):
+    counter = 1
+    flag = True
+    y = Decimal(i ** 2)
+    y = str(y)
+    for j in range(0, 17, 2):
+        if int(y[j]) != j + counter:
+            flag = False
+        counter -= 1
+    if flag:
+        print(i)
+        break    

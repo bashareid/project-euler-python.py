@@ -1,0 +1,62 @@
+"""
+A common security method used for online banking is to ask the user for three random characters from a passcode. For example, if the passcode was 531278, they may ask for the 2nd, 3rd, and 5th characters; the expected reply would be: 317.
+
+The text file, keylog.txt, contains fifty successful login attempts.
+
+Given that the three characters are always asked for in order, analyse the file so as to determine the shortest possible secret passcode of unknown length.
+"""
+"""
+I can solve it using graph.
+
+"""
+
+combinations = set()
+digit = set()
+array = []
+dic = {}
+temp = []
+the_final_string = []
+x = 0
+string = '' 
+
+with open('numbers.txt') as file:
+  for line in file :
+    x = line[0:2]
+    y = line[1:3]
+    combinations.add(x)
+    combinations.add(y)
+    digit.add(line[0])
+    digit.add(line[1])
+    digit.add(line[2])
+
+for i in digit:
+    array.append(i)
+array.sort()
+
+for i in array:
+    temp = []
+    for j in combinations:
+        if i == j[0]:
+            temp.append(j[1])
+    dic[i] = temp
+
+for i in array[1::]:
+    counter = 0
+    for j in dic:
+        if i in dic[j]:
+            counter += 1
+    the_final_string.append([i, counter])
+the_final_string = sorted(the_final_string, key = lambda s: s[1], reverse=False) 
+
+for i in range(len(the_final_string)):
+    for j in range(len(the_final_string)):
+        if i != j and x  == 0:
+            if the_final_string[i][1] == the_final_string[j][1]:
+                x += 1
+                if the_final_string[i][0] in dic[the_final_string[j][0]]:
+                    the_final_string[i], the_final_string[j]  = the_final_string[j], the_final_string[i]
+
+for i in the_final_string:
+    string += i[0]
+print(string + '0')
+    

@@ -1,0 +1,77 @@
+"""
+Euler's Totient function, φ(n) [sometimes called the phi function], is used to determine the number of numbers less than n which 
+are relatively prime to n. For example, as 1, 2, 4, 5, 7, and 8, are all less than nine and relatively prime to nine, φ(9)=6.
+
+It can be seen that n=6 produces a maximum n/φ(n) for n ≤ 10.
+
+Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
+
+"""
+"""
+I did not use any resources.
+
+The idea is all numbers in the world are odd and even so they are divisable by 2 and 3 unless the number is prime 
+the prime numbers have a lot of relative primes so they are out of the result so if the number divisable by 2 and 3 then we have to 
+check only the primes one.
+
+1 - First solution number by number i took the numbers that are divisable by 2 and 3 then check the primes less than them
+    that almost took complexity of (12 000 000 ).
+
+2 - Second solution prime numbers already have 2 and 3 so when we starting multiplie the primes we can have the largest prime number
+    that is has gcd = 1 with all the primes that are less than him. 
+
+"""
+
+"""
+
+upper_bound = 1000000
+primes = all_primes(upper_bound)
+numbers = []
+result = []
+maximum = 0    
+
+for i in range(1, upper_bound):
+    if i % 2 == 0 and i % 3 == 0:
+        numbers.append(i)
+
+for i in numbers:
+    counter = 1
+    for j in primes:
+        if j > i:
+            break
+        else:
+            if i % j != 0:
+                counter += 1
+    result.append((i, counter))   
+
+for i in result:
+    ratoi = i[0] / i[1] 
+    if ratoi > maximum:
+        maximum = ratoi
+        number = i
+print(maximum, number)     
+                 
+"""
+from math import gcd
+
+def all_primes(upper_bound):
+  primes = [2]
+  for i in range(3, upper_bound):
+    j = 0
+    while j < len(primes) and primes[j] <= int(i ** 0.5):
+      if i % primes[j] == 0:
+        break
+      j += 1
+    else:
+      primes.append(i)
+  return primes
+
+multiple = 1
+primes = all_primes(1000)
+upper_bound = 1000000
+x = 0
+
+while (primes[x] * multiple < upper_bound):
+    multiple *= primes[x]
+    x += 1
+print(multiple)

@@ -1,0 +1,23 @@
+import math
+from math import gcd
+upper_bound = 1500001
+solutions = [0] * upper_bound
+
+for i in range(2, int(math.sqrt(upper_bound/2))):
+  for j in range(1, i):
+    if ((i + j) % 2) == 1:
+      if gcd(i, j) == 1:
+
+        a = (i ** 2) + (j ** 2)
+        c = 2 * i * j
+        b = (i ** 2) - (j ** 2)
+        sol = c + a + b
+        k = 1
+        while (k * sol)  <= upper_bound:
+          solutions[k * sol] += 1
+          k += 1
+result = 0
+for i in range(upper_bound):
+  if solutions[i] == 1:
+    result += 1
+print(result)

@@ -1,0 +1,27 @@
+"""
+When we are in the last column what should we do go from top right or down right or just keep our selfs on the same track.
+
+"""
+array = []
+with open ('numbers.txt') as file:
+  for line in file :
+    temp = []
+    for i in line.split(','):
+      temp.append(int(i))
+    array.append(temp) 
+
+sol = [0] * 80
+grid_size = 80
+for i in range(grid_size):
+  sol[i] = array[i][grid_size - 1]
+print(sol)
+
+for i in range(grid_size - 2, -1, -1):
+    sol[0] += array[0][i]
+    for j in range(1, grid_size):
+      sol[j] = min(sol[j - 1] + array[j][i], sol[j] + array[j][i])
+
+    for j in range(grid_size - 2, -1, -1):
+        sol[j] = min(sol[j], sol[j + 1] + array[j][i])
+
+print(min(sol))

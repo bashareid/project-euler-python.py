@@ -1,0 +1,37 @@
+"""
+Consider quadratic Diophantine equations of the form:
+
+x2 – Dy2 = 1
+
+For example, when D=13, the minimal solution in x is 6492 – 13×1802 = 1.
+
+It can be assumed that there are no solutions in positive integers when D is square.
+
+By finding minimal solutions in x for D = {2, 3, 5, 6, 7}, we obtain the following:
+
+32 – 2×22 = 1
+22 – 3×12 = 1
+92 – 5×42 = 1
+52 – 6×22 = 1
+82 – 7×32 = 1
+
+Hence, by considering minimal solutions in x for D ≤ 7, the largest x is obtained when D=5.
+
+Find the value of D ≤ 1000 in minimal solutions of x for which the largest value of x is obtained.
+
+"""
+"""
+this is the the brute force solution the correct one is just an equation from wikipedia so i think this one is more interesting
+from technical point of view
+"""
+import math
+result = []
+for i in range(2, 1000):
+    if not math.sqrt(i).is_integer():
+        for y in range(1, 10000000):
+            x = math.sqrt(i * (y ** 2) + 1)
+            if x == int(x):
+                result.append((x, i))
+                break
+result = sorted(result, key = lambda s: s[0], reverse = False )
+print(result)  
